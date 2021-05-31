@@ -3,6 +3,7 @@ package sg.edu.rp.c346.id20020509.mylocalbanks;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tvDBS, tvOCBC, tvUOB;
     String bankClicked = "";
+    Boolean blDBS, blOCBC, blUOB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         tvDBS = findViewById(R.id.tvDBS);
         tvOCBC = findViewById(R.id.tvOCBC);
         tvUOB = findViewById(R.id.tvUOB);
+        blDBS = true;
+        blOCBC = true;
+        blUOB = true;
 
         registerForContextMenu(tvDBS);
         registerForContextMenu(tvOCBC);
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         menu.add(0,0,0,"Website");
         menu.add(0,1,1,"Contact the bank");
+        menu.add(0,2,2,"Toggle Favourite");
 
         if (v == tvDBS) {
             bankClicked = "DBS";
@@ -67,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentCall);
                 return true;  //menu item successfully handled
             }
+            else if((id==2) && (blDBS)) { //check if the selected menu item ID is 1
+                //code for action
+                tvDBS.setTextColor(Color.parseColor("#FF0000"));
+                blDBS = false;  //menu item successfully handled
+            }
+            else if((id==2) && (!blDBS)) { //check if the selected menu item ID is 1
+                //code for action
+                tvDBS.setTextColor(Color.parseColor("#000000"));
+            }
         }
         else if(bankClicked.equalsIgnoreCase("ocbc")) {
             if(id == 0) { //check whether the selected menu item ID is 0
@@ -81,6 +96,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentCall);
                 return true;  //menu item successfully handled
             }
+            else if((id==2) && (blOCBC)) { //check if the selected menu item ID is 1
+                //code for action
+                tvOCBC.setTextColor(Color.parseColor("#FF0000"));
+                blOCBC = false;  //menu item successfully handled
+            }
+            else if((id==2) && (!blOCBC)) { //check if the selected menu item ID is 1
+                //code for action
+                tvOCBC.setTextColor(Color.parseColor("#000000"));
+            }
         }
         else if(bankClicked.equalsIgnoreCase("uob")) {
             if(id == 0) { //check whether the selected menu item ID is 0
@@ -94,6 +118,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+1+800+222+2121));
                 startActivity(intentCall);
                 return true;  //menu item successfully handled
+            }
+            else if((id==2) && (blUOB)) { //check if the selected menu item ID is 1
+                //code for action
+                tvUOB.setTextColor(Color.parseColor("#FF0000"));
+                blUOB = false;  //menu item successfully handled
+            }
+            else if((id==2) && (!blUOB)) { //check if the selected menu item ID is 1
+                //code for action
+                tvUOB.setTextColor(Color.parseColor("#000000"));
             }
         }
         return super.onContextItemSelected(item); //pass menu item to the superclass implementation
